@@ -3,7 +3,11 @@
  */
 public with sharing class SearchController {
     public String searchTerm {
-        get { return ApexPages.currentPage().getParameters().get('q'); }
+        get {
+        String searchTermParam = ApexPages.currentPage().getParameters().get('q');
+        String safeSearchTerm = searchTermParam == null ? null : searchTermParam.escapeHtml4();
+        return safeSearchTerm;
+        }
         set;
     }
 
@@ -12,3 +16,4 @@ public with sharing class SearchController {
         set;
     }
 }
+
